@@ -1,0 +1,52 @@
+{
+  "utilisateurs": [
+    {
+      "id": "1",
+      "nom": "Resia Djonga",
+      "email": "resiadjonga20@gmail.com",
+      "motDePasse": "1234"
+    }
+  ],
+  "projets": [
+    {
+      "id": "1",
+      "utilisateurId": "1",
+      "nom": "Site vitrine Nguvu",
+      "description": "Refonte complète du site institutionnel.",
+      "couleur": "#21C7A5",
+      "creeLe": "2026-09-01"
+    },
+    {
+      "id": "2",
+      "utilisateurId": "1",
+      "nom": "Application Quizzy",
+      "description": "Quiz interactif chronométré.",
+      "couleur": "#7C3AED",
+      "creeLe": "2026-09-02"
+    }
+  ],
+  "taches": [
+    {
+      "id": "1",
+      "projetId": "1",
+      "titre": "Intégrer le formulaire de contact",
+      "description": "Validation des champs obligatoires et envoi.",
+      "statut": "en_cours",
+      "priorite": "haute",
+      "echeance": "2026-09-12",
+      "creeLe": "2026-09-02",
+      "modifieLe": "2026-09-04"
+    },
+    {
+      "id": "2",
+      "projetId": "1",
+      "titre": "Optimiser les images de la galerie",
+      "description": "Compression et format WebP.",
+      "statut": "a_faire",
+      "priorite": "moyenne",
+      "echeance": "2026-09-14",
+      "creeLe": "2026-09-03",
+      "modifieLe": "2026-09-03"
+    }
+  ]
+}
