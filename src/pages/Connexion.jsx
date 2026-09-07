@@ -19,7 +19,7 @@ export const Connexion = () => {
 
     try {
       // Interroge JSON Server pour trouver l'utilisateur avec cet email
-      const response = await fetch(`http://localhost:3001/utilisateurs?email=${email}`);
+      const response = await fetch(`http://localhost:3000/utilisateurs?email=${email}`);
       const users = await response.json();
 
       // Vérification : L'utilisateur existe-t-il ET le mot de passe correspond-il ?

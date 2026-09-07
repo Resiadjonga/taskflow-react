@@ -16,7 +16,7 @@ export const Dashboard = () => {
   // 1. Charger la liste des projets au chargement du composant
   const chargerProjets = async () => {
     try {
-      const response = await fetch('http://localhost:3001/projets');
+      const response = await fetch('http://localhost:3000/projets');
       const data = await response.json();
       setProjets(data);
     } catch (err) {
@@ -39,7 +39,7 @@ export const Dashboard = () => {
     };
 
     try {
-      const response = await fetch('http://localhost:3001/projets', {
+      const response = await fetch('http://localhost:3000/projets', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify(nouveauProjet)
@@ -90,7 +90,7 @@ export const Dashboard = () => {
         <div className="dash-user-profile">
           <div className="avatar">{initiales}</div>
           <div className="user-details">
-            <p className="user-name">{utilisateur?.nom || 'Shammah N.'}</p>
+            <p className="user-name">{utilisateur?.nom || 'Resia D.'}</p>
             <button onClick={handleLogout} className="btn-logout-link">
               Se deconnecter
             </button>
@@ -104,7 +104,7 @@ export const Dashboard = () => {
           <div>
             <h2>Tableau de bord</h2>
             <p className="dash-subtitle">
-              Bonjour {utilisateur?.nom || 'Shammah'}, voici l'etat de vos projets.
+              Bonjour {utilisateur?.nom || 'Resia'}, voici l'etat de vos projets.
             </p>
           </div>
           <button className="btn-new-project" onClick={() => setShowModal(true)}>
