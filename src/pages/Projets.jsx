@@ -66,8 +66,8 @@ export const Projets = () => {
 
     try {
       const url = isEditing 
-        ? `http://localhost:3001/projets/${currentId}` 
-        : 'http://localhost:3001/projets';
+        ? `http://localhost:3000/projets/${currentId}` 
+        : 'http://localhost:3000/projets';
       
       const method = isEditing ? 'PUT' : 'POST';
 
@@ -90,7 +90,7 @@ export const Projets = () => {
   const handleSupprimer = async (id) => {
     if (window.confirm("Voulez-vous vraiment supprimer ce projet ?")) {
       try {
-        const response = await fetch(`http://localhost:3001/projets/${id}`, {
+        const response = await fetch(`http://localhost:3000/projets/${id}`, {
           method: 'DELETE'
         });
         if (response.ok) {

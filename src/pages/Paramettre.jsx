@@ -3,7 +3,7 @@ import { useAuth } from '../context/AuthContext';
 import { Link, useNavigate } from 'react-router-dom';
 
 export const Parametres = () => {
-  const { utilisateur, seDeconnecter } = useAuth();
+  const { utilisateur, avatar, mettreAJourAvatar, seDeconnecter } = useAuth();
   const navigate = useNavigate();
 
   const [nom, setNom] = useState('');
@@ -21,6 +21,19 @@ export const Parametres = () => {
     }
   }, [utilisateur]);
 
+  // Gestion de l'upload de l'avatar
+  const handleAvatarClick = () => {
+    document.getElementById('fileInputParametres').click();
+  };
+
+  const handleFileChange = (e) => {
+    const file = e.target.files[0];
+    if (file) {
+      const imageUrl = URL.createObjectURL(file);
+      mettreAJourAvatar(imageUrl);
+    }
+  };
+
   const handleUpdate = async (e) => {
     e.preventDefault();
     setErreur('');
@@ -33,7 +46,8 @@ export const Parametres = () => {
 
     try {
       setChargement(true);
-      const reponse = await fetch(`http://localhost:3001/utilisateurs/${utilisateur.id}`, {
+      // Correction du port 3001 vers 3000 pour correspondre à ton json-server
+      const reponse = await fetch(`http://localhost:3000/utilisateurs/${utilisateur.id}`, {
         method: 'PATCH',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({
@@ -53,14 +67,18 @@ export const Parametres = () => {
     }
   };
 
+  // Gestion de la déconnexion avec confirmation
   const handleLogout = () => {
-    seDeconnecter();
-    navigate('/connexion');
+    const confirmation = window.confirm("Voulez-vous vraiment vous déconnecter ?");
+    if (confirmation) {
+      seDeconnecter();
+      navigate('/connexion');
+    }
   };
 
   const initiales = utilisateur?.nom
     ? utilisateur.nom.split(' ').map((n) => n[0]).join('').toUpperCase()
-    : 'SN';
+    : 'RD';
 
   return (
     <div className="dash-container">
@@ -81,9 +99,29 @@ export const Parametres = () => {
         </nav>
 
         <div className="dash-user-profile">
-          <div className="avatar">{initiales}</div>
+          <input 
+            type="file" 
+            id="fileInputParametres" 
+            style={{ display: 'none' }} 
+            accept="image/*" 
+            onChange={handleFileChange}
+          />
+
+          <div 
+            className="avatar" 
+            onClick={handleAvatarClick} 
+            style={{ cursor: 'pointer', overflow: 'hidden' }}
+            title="Cliquez pour changer la photo de profil"
+          >
+            {avatar ? (
+              <img src={avatar} alt="Profil" style={{ width: '100%', height: '100%', objectFit: 'cover' }} />
+            ) : (
+              initiales
+            )}
+          </div>
+
           <div className="user-details">
-            <p className="user-name">{utilisateur?.nom || 'Shammah N.'}</p>
+            <p className="user-name">{utilisateur?.nom || 'Resia D.'}</p>
             <button onClick={handleLogout} className="btn-logout-link">
               Se deconnecter
             </button>

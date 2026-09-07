@@ -4,7 +4,7 @@ import { useNavigate } from 'react-router-dom';
 import { Link } from 'react-router-dom';
 
 export const Dashboard = () => {
-  const { utilisateur, seDeconnecter } = useAuth();
+  const { utilisateur, avatar, mettreAJourAvatar, seDeconnecter } = useAuth();
   const navigate = useNavigate();
 
   // Liste dynamique des projets et états de la modale
@@ -13,7 +13,29 @@ export const Dashboard = () => {
   const [nomProjet, setNomProjet] = useState('');
   const [progression, setProgression] = useState(0);
 
-  // 1. Charger la liste des projets au chargement du composant
+  // Gestion de l'upload de l'avatar via l'AuthContext
+  const handleAvatarClick = () => {
+    document.getElementById('fileInput').click();
+  };
+
+  const handleFileChange = (e) => {
+    const file = e.target.files[0];
+    if (file) {
+      const imageUrl = URL.createObjectURL(file);
+      mettreAJourAvatar(imageUrl); // Sauvegarde globale
+    }
+  };
+
+  // Gestion de la déconnexion avec confirmation
+  const handleLogout = () => {
+    const confirmation = window.confirm("Voulez-vous vraiment vous déconnecter ?");
+    if (confirmation) {
+      seDeconnecter();
+      navigate('/connexion');
+    }
+  };
+
+  // Charger la liste des projets
   const chargerProjets = async () => {
     try {
       const response = await fetch('http://localhost:3000/projets');
@@ -28,7 +50,6 @@ export const Dashboard = () => {
     chargerProjets();
   }, []);
 
-  // 2. Créer un nouveau projet via POST
   const handleCreateProject = async (e) => {
     e.preventDefault();
 
@@ -46,11 +67,8 @@ export const Dashboard = () => {
       });
 
       if (response.ok) {
-        // Mettre à jour la liste sans recharger la page
         const projetCree = await response.json();
         setProjets((prevProjets) => [...prevProjets, projetCree]);
-        
-        // Réinitialiser le formulaire et fermer la modale
         setNomProjet('');
         setProgression(0);
         setShowModal(false);
@@ -58,11 +76,6 @@ export const Dashboard = () => {
     } catch (err) {
       alert("Erreur lors de la création du projet.");
     }
-  };
-
-  const handleLogout = () => {
-    seDeconnecter();
-    navigate('/connexion');
   };
 
   const initiales = utilisateur?.nom
@@ -88,7 +101,27 @@ export const Dashboard = () => {
         </nav>
 
         <div className="dash-user-profile">
-          <div className="avatar">{initiales}</div>
+          <input 
+            type="file" 
+            id="fileInput" 
+            style={{ display: 'none' }} 
+            accept="image/*" 
+            onChange={handleFileChange}
+          />
+
+          <div 
+            className="avatar" 
+            onClick={handleAvatarClick} 
+            style={{ cursor: 'pointer', overflow: 'hidden' }}
+            title="Cliquez pour changer la photo de profil"
+          >
+            {avatar ? (
+              <img src={avatar} alt="Profil" style={{ width: '100%', height: '100%', objectFit: 'cover' }} />
+            ) : (
+              initiales
+            )}
+          </div>
+
           <div className="user-details">
             <p className="user-name">{utilisateur?.nom || 'Resia D.'}</p>
             <button onClick={handleLogout} className="btn-logout-link">
