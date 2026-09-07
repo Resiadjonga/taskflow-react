@@ -14,7 +14,9 @@
       "nom": "Site vitrine Nguvu",
       "description": "Refonte complète du site institutionnel.",
       "couleur": "#21C7A5",
-      "creeLe": "2026-09-01"
+      "creeLe": "2026-09-01",
+      "progression": 40,
+      "userId": "1"
     },
     {
       "id": "2",
@@ -22,7 +24,15 @@
       "nom": "Application Quizzy",
       "description": "Quiz interactif chronométré.",
       "couleur": "#7C3AED",
-      "creeLe": "2026-09-02"
+      "creeLe": "2026-09-02",
+      "progression": 70,
+      "userId": "1"
+    },
+    {
+      "nom": "REACT",
+      "progression": 51,
+      "userId": "1",
+      "id": "Fu87pAHJlTo"
     }
   ],
   "taches": [
@@ -48,5 +58,6 @@
       "creeLe": "2026-09-03",
       "modifieLe": "2026-09-03"
     }
-  ]
+  ],
+  "$schema": "./node_modules/json-server/schema.json"
 }
