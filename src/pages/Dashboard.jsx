@@ -7,8 +7,9 @@ export const Dashboard = () => {
   const { utilisateur, avatar, mettreAJourAvatar, seDeconnecter } = useAuth();
   const navigate = useNavigate();
 
-  // Liste dynamique des projets et états de la modale
+  // États pour les projets, les tâches et la modale de création
   const [projets, setProjets] = useState([]);
+  const [taches, setTaches] = useState([]); // <-- Ajout de l'état pour stocker les tâches dynamiques
   const [showModal, setShowModal] = useState(false);
   const [nomProjet, setNomProjet] = useState('');
   const [progression, setProgression] = useState(0);
@@ -22,7 +23,7 @@ export const Dashboard = () => {
     const file = e.target.files[0];
     if (file) {
       const imageUrl = URL.createObjectURL(file);
-      mettreAJourAvatar(imageUrl); // Sauvegarde globale
+      mettreAJourAvatar(imageUrl);
     }
   };
 
@@ -46,8 +47,21 @@ export const Dashboard = () => {
     }
   };
 
+  // Charger la liste des tâches pour rendre les statistiques dynamiques
+  const chargerTaches = async () => {
+    try {
+      // Ajuste l'URL du port selon ton API backend (ex: port 3001 pour les tâches)
+      const response = await fetch('http://localhost:3000/taches');
+      const data = await response.json();
+      setTaches(data);
+    } catch (err) {
+      console.error('Erreur lors du chargement des tâches:', err);
+    }
+  };
+
   useEffect(() => {
     chargerProjets();
+    chargerTaches();
   }, []);
 
   const handleCreateProject = async (e) => {
@@ -61,7 +75,7 @@ export const Dashboard = () => {
 
     try {
       const response = await fetch('http://localhost:3000/projets', {
-        method: 'POST',
+        method: method, // Note: s'assure d'utiliser POST pour la création
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify(nouveauProjet)
       });
@@ -77,6 +91,28 @@ export const Dashboard = () => {
       alert("Erreur lors de la création du projet.");
     }
   };
+
+  // --- CALCULS DYNAMIQUES DES TÂCHES ---
+  const totalTaches = taches.length;
+
+  // Filtrage intelligent gérant les variations d'écriture (accents, majuscules, espaces)
+  const tachesAFaire = taches.filter((t) => {
+    const statut = (t.statut || '').toLowerCase().replace(/[\s_]+/g, '');
+    return statut === 'afaire' || statut === 'àfaire';
+  }).length;
+
+  const tachesEnCours = taches.filter((t) => {
+    const statut = (t.statut || '').toLowerCase().replace(/[\s_]+/g, '');
+    return statut === 'encours';
+  }).length;
+
+  const tachesTerminees = taches.filter((t) => {
+    const statut = (t.statut || '').toLowerCase().replace(/[\s_]+/g, '');
+    return statut === 'terminee' || statut === 'terminée';
+  }).length;
+
+  // Calcul du pourcentage global de tâches terminées
+  const pourcentageTerminees = totalTaches > 0 ? ((tachesTerminees / totalTaches) * 100).toFixed(1) : 0;
 
   const initiales = utilisateur?.nom
     ? utilisateur.nom.split(' ').map((n) => n[0]).join('').toUpperCase()
@@ -198,39 +234,39 @@ export const Dashboard = () => {
           </div>
           <div className="stat-card">
             <span className="stat-label">TOTAL TACHES</span>
-            <span className="stat-value text-dark">27</span>
+            <span className="stat-value text-dark">{totalTaches}</span>
             <span className="stat-sub">tous projets confondus</span>
           </div>
           <div className="stat-card">
             <span className="stat-label">EN COURS</span>
-            <span className="stat-value text-orange">8</span>
-            <span className="stat-sub">a terminer cette semaine</span>
+            <span className="stat-value text-orange">{tachesEnCours}</span>
+            <span className="stat-sub">tâches en cours</span>
           </div>
           <div className="stat-card">
             <span className="stat-label">TERMINEES</span>
-            <span className="stat-value text-teal">14</span>
-            <span className="stat-sub">51.8 % du total</span>
+            <span className="stat-value text-teal">{tachesTerminees}</span>
+            <span className="stat-sub">{pourcentageTerminees} % du total</span>
           </div>
         </div>
 
-        {/* Section Avancement par Projet */}
+        {/* Section Avancement par Projet et Graphique */}
         <div className="charts-grid">
           <div className="dash-card">
             <h3>Repartition des taches par statut</h3>
             <div className="bar-chart">
               <div className="chart-column">
-                <span className="col-val">5</span>
-                <div className="bar grey" style={{ height: '50px' }}></div>
+                <span className="col-val">{tachesAFaire}</span>
+                <div className="bar grey" style={{ height: `${Math.max(tachesAFaire * 10, 15)}px` }}></div>
                 <span className="col-label">A faire</span>
               </div>
               <div className="chart-column">
-                <span className="col-val">8</span>
-                <div className="bar orange" style={{ height: '80px' }}></div>
+                <span className="col-val">{tachesEnCours}</span>
+                <div className="bar orange" style={{ height: `${Math.max(tachesEnCours * 10, 15)}px` }}></div>
                 <span className="col-label">En cours</span>
               </div>
               <div className="chart-column">
-                <span className="col-val">14</span>
-                <div className="bar teal" style={{ height: '130px' }}></div>
+                <span className="col-val">{tachesTerminees}</span>
+                <div className="bar teal" style={{ height: `${Math.max(tachesTerminees * 10, 15)}px` }}></div>
                 <span className="col-label">Terminee</span>
               </div>
             </div>

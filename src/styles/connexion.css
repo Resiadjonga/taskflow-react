@@ -10,13 +10,15 @@
   background-color: #111d33;
   color: #ffffff;
   display: flex;
-  align-items: center;
+  flex-direction: column;
+  align-items: flex-start;
   justify-content: center;
   padding: 60px;
 }
 
 .sidebar-content {
   max-width: 420px;
+  text-align: left;
 }
 
 .logo-title {
@@ -84,12 +86,14 @@
   display: flex;
   flex-direction: column;
   gap: 6px;
+  text-align: left;
 }
 
 .form-label {
   font-size: 0.85rem;
   font-weight: 700;
   color: #1e293b;
+  text-align: left;
 }
 
 .form-input {
@@ -101,6 +105,7 @@
   background-color: #ffffff;
   outline: none;
   box-sizing: border-box;
+  text-align: left;
 }
 
 .form-input:focus {
@@ -209,6 +214,7 @@
   font-weight: 600;
   margin-bottom: 5px;
   color: #334155;
+  text-align: left;
 }
 
 .inscription-group input {
@@ -218,6 +224,7 @@
   border: 1px solid #cbd5e1;
   box-sizing: border-box;
   outline: none;
+  text-align: left;
 }
 
 .inscription-group input:focus {
@@ -265,6 +272,17 @@
   }
   .auth-sidebar {
     padding: 30px 20px;
+    align-items: center;
+    text-align: center;
+  }
+  .sidebar-content {
+    text-align: center;
+  }
+  .sidebar-features {
+    border-left: none;
+    border-top: 2px solid #1ad1a5;
+    padding-left: 0;
+    padding-top: 10px;
   }
   .auth-main {
     padding: 30px 20px;

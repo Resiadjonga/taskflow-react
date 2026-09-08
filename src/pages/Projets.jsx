@@ -1,40 +1,49 @@
 import { useEffect, useState } from 'react';
 import { Layout } from '../components/Layout';
 import { useApi } from '../Hooks/useApi';
+import { useNavigate } from 'react-router-dom';
 
 export const Projets = () => {
-  const [projets, setProjets] = useState([]);
-  const [recherche, setRecherche] = useState('');
-  const [showModal, setShowModal] = useState(false);
+  // --- ÉTATS DU COMPOSANT ---
+  const [projets, setProjets] = useState([]); // Liste des projets récupérés
+  const [taches, setTaches] = useState([]);   // Liste de toutes les tâches pour le calcul dynamique
+  const [recherche, setRecherche] = useState(''); // Valeur de la barre de recherche
+  const [showModal, setShowModal] = useState(false); // Contrôle l'affichage de la modale (création/édition)
   
-  // États pour la création ou la modification
+  // États spécifiques pour la modification ou création d'un projet
   const [isEditing, setIsEditing] = useState(false);
   const [currentId, setCurrentId] = useState(null);
   const [nomProjet, setNomProjet] = useState('');
   const [description, setDescription] = useState('');
   const [progression, setProgression] = useState(0);
 
+  // Hook personnalisé pour les appels API et gestion des états de chargement/erreur
   const { executerRequete, chargement, erreur } = useApi();
+  const navigate = useNavigate(); // Hook pour la navigation entre les pages
 
-  const chargerProjets = async () => {
+  // --- CHARGEMENT DES PROJETS ET DES TÂCHES DEPUIS L'API ---
+  const chargerDonnees = async () => {
     try {
-      const data = await executerRequete('/projets');
-      setProjets(data);
+      const dataProjets = await executerRequete('/projets');
+      const dataTaches = await executerRequete('/taches');
+      setProjets(dataProjets);
+      setTaches(dataTaches);
     } catch (err) {
       console.error(err);
     }
   };
 
+  // Exécute le chargement au premier rendu du composant
   useEffect(() => {
-    chargerProjets();
+    chargerDonnees();
   }, [executerRequete]);
 
-  // Filtrer les projets selon la recherche
+  // --- FILTRAGE DES PROJETS ---
   const projetsFiltres = projets.filter((p) =>
     (p.nom || p.titre || '').toLowerCase().includes(recherche.toLowerCase())
   );
 
-  // Ouvrir la modale pour la création
+  // --- GESTION DE LA MODALE : OUVERTURE (CRÉATION) ---
   const handleOpenCreate = () => {
     setIsEditing(false);
     setCurrentId(null);
@@ -44,7 +53,7 @@ export const Projets = () => {
     setShowModal(true);
   };
 
-  // Ouvrir la modale pour la modification avec les données existantes
+  // --- GESTION DE LA MODALE : OUVERTURE (ÉDITION) ---
   const handleOpenEdit = (projet) => {
     setIsEditing(true);
     setCurrentId(projet.id);
@@ -54,7 +63,7 @@ export const Projets = () => {
     setShowModal(true);
   };
 
-  // Soumission du formulaire (Création POST ou Modification PUT)
+  // --- SOUMISSION DU FORMULAIRE (ENREGISTREMENT) ---
   const handleSubmitForm = async (e) => {
     e.preventDefault();
     const projetData = {
@@ -78,15 +87,16 @@ export const Projets = () => {
       });
 
       if (response.ok) {
-        await chargerProjets(); // Recharge la liste mise à jour depuis le serveur
+        await chargerDonnees();
         setShowModal(false);
+        alert("Enregistrement effectué avec succès");
       }
     } catch (err) {
       alert("Erreur lors de l'enregistrement du projet.");
     }
   };
 
-  // Supprimer un projet
+  // --- SUPPRESSION D'UN PROJET ---
   const handleSupprimer = async (id) => {
     if (window.confirm("Voulez-vous vraiment supprimer ce projet ?")) {
       try {
@@ -102,10 +112,11 @@ export const Projets = () => {
     }
   };
 
-  // Ouvrir les détails du projet (redirection ou action personnalisée)
+  // --- REDIRECTION AU CLIC SUR "OUVRIR" ---
   const handleOuvrir = (projet) => {
-    alert(`Ouverture du projet : ${projet.nom || projet.titre}`);
-    // Si tu as une page de détail, tu peux utiliser navigate(`/projets/${projet.id}`) ici
+    const nomDuProjet = projet.nom || projet.titre;
+    // Transmet dynamiquement le nom du projet cliqué à la page des tâches
+    navigate('/taches', { state: { projetNom: nomDuProjet } });
   };
 
   if (chargement) return <Layout><p className="state-message">Chargement des projets...</p></Layout>;
@@ -116,7 +127,8 @@ export const Projets = () => {
       <div className="projets-header">
         <div>
           <h1 className="projets-title">Mes projets</h1>
-          <p className="projets-subtitle">{projets.length} projets — 27 tâches au total</p>
+          {/* Affichage dynamique du nombre total de projets et de tâches */}
+          <p className="projets-subtitle">{projets.length} projets — {taches.length} tâches au total</p>
         </div>
         <button className="btn-add-projet" onClick={handleOpenCreate}>
           + Nouveau projet
@@ -136,7 +148,6 @@ export const Projets = () => {
         </select>
       </div>
 
-      {/* Modale unique pour Création et Modification */}
       {showModal && (
         <div className="modal-overlay">
           <div className="modal-content">
@@ -189,38 +200,42 @@ export const Projets = () => {
         </div>
       )}
 
-      {/* Grille des projets */}
       <div className="projets-grid">
         {projetsFiltres.length > 0 ? (
-          projetsFiltres.map((p) => (
-            <div key={p.id} className="projet-card">
-              <div className="card-top">
-                <h3 className="projet-name">
-                  <span className="dot-status">🟢</span> {p.nom || p.titre}
-                </h3>
-                <p className="projet-desc">{p.description || "Aucune description fournie."}</p>
+          projetsFiltres.map((p) => {
+            // Calcule dynamiquement le nombre de tâches associées à ce projet précis
+            const nbTachesProjet = taches.filter(t => t.projetId === p.id).length;
+
+            return (
+              <div key={p.id} className="projet-card">
+                <div className="card-top">
+                  <h3 className="projet-name">
+                    <span className="dot-status">🟢</span> {p.nom || p.titre}
+                  </h3>
+                  <p className="projet-desc">{p.description || "Aucune description fournie."}</p>
+                </div>
+                <div className="card-bottom">
+                  <div className="progress-info">
+                    {/* Affiche le nombre réel calculé */}
+                    <span>{nbTachesProjet} {nbTachesProjet > 1 ? 'tâches' : 'tâche'}</span>
+                    <span className="progress-percent">{p.progression || 0} %</span>
+                  </div>
+                  <div className="progress-track">
+                    <div className="progress-fill" style={{ width: `${p.progression || 0}%` }}></div>
+                  </div>
+                  <div className="card-actions">
+                    <button className="btn-card" onClick={() => handleOuvrir(p)}>Ouvrir</button>
+                    <button className="btn-card" onClick={() => handleOpenEdit(p)}>Modifier</button>
+                    <button className="btn-card danger" onClick={() => handleSupprimer(p.id)}>Supprimer</button>
+                  </div>
+                </div>
               </div>
-              <div className="card-bottom">
-                <div className="progress-info">
-                  <span>8 tâches</span>
-                  <span className="progress-percent">{p.progression || 0} %</span>
-                </div>
-                <div className="progress-track">
-                  <div className="progress-fill" style={{ width: `${p.progression || 0}%` }}></div>
-                </div>
-                <div className="card-actions">
-                  <button className="btn-card" onClick={() => handleOuvrir(p)}>Ouvrir</button>
-                  <button className="btn-card" onClick={() => handleOpenEdit(p)}>Modifier</button>
-                  <button className="btn-card danger" onClick={() => handleSupprimer(p.id)}>Supprimer</button>
-                </div>
-              </div>
-            </div>
-          ))
+            );
+          })
         ) : (
           <p className="state-message">Aucun projet ne correspond à votre recherche.</p>
         )}
 
-        {/* Carte pointillée */}
         <div className="projet-card projet-card-dashed" onClick={handleOpenCreate}>
           <span>+ Créer un nouveau projet</span>
         </div>

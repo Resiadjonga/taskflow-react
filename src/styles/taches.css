@@ -25,10 +25,17 @@
   border-radius: 6px;
   font-weight: bold;
   cursor: pointer;
+  transition: background-color 0.2s, transform 0.2s;
 }
 
 .btn-new-task:hover {
   background: #059669;
+  transform: translateY(-2px);
+}
+
+.btn-new-task:active {
+  background: #047857;
+  transform: translateY(0);
 }
 
 .taches-filters-bar {
@@ -81,18 +88,32 @@
   transition: all 0.2s;
 }
 
-.tab-btn.active {
+.tab-btn:hover {
+  border-color: #94a3b8;
+  color: #0f172a;
+}
+
+.tab-btn.active, .tab-btn:active {
   background: #0F172A;
   color: #ffffff;
   border-color: #0F172A;
 }
 
+/* Carte des tâches avec animations dynamiques et dégradé subtil aux côtés */
 .taches-table-card {
-  background: #fff;
-  border-radius: 8px;
-  border: 1px solid #E2E8F0;
+  background: linear-gradient(145deg, #ffffff 0%, #f8fafc 100%);
+  border-radius: 12px;
+  border: 2px solid #cbd5e1;
   padding: 20px;
-  overflow-x: auto; /* Permet de scroller horizontalement sur mobile si le tableau est large */
+  overflow-x: auto;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.02);
+  transition: transform 0.3s ease, box-shadow 0.3s ease, border-color 0.3s ease;
+}
+
+.taches-table-card:hover {
+  transform: translateY(-4px);
+  border-color: #6366f1;
+  box-shadow: 0 12px 24px rgba(99, 102, 241, 0.12);
 }
 
 .taches-table {
@@ -115,6 +136,11 @@
 .taches-tbody-row {
   border-bottom: 1px solid #F1F5F9;
   font-size: 0.85rem;
+  transition: background-color 0.2s;
+}
+
+.taches-tbody-row:hover {
+  background-color: #f8fafc;
 }
 
 .taches-tbody-row td {
@@ -162,10 +188,17 @@
   cursor: pointer;
   font-size: 0.75rem;
   margin-right: 5px;
+  transition: all 0.2s;
 }
 
 .btn-action:hover {
   background: #F8FAFC;
+  border-color: #94a3b8;
+}
+
+.btn-action:active {
+  background: #e2e8f0;
+  color: #0f172a;
 }
 
 .btn-delete {
@@ -176,6 +209,108 @@
 
 .btn-delete:hover {
   background: #FEF2F2;
+  border-color: #ef4444;
+}
+
+.btn-delete:active {
+  background: #fee2e2;
+}
+/* Style harmonisé pour les boutons d'onglets (Toutes, À faire, En cours, Terminées) */
+.tab-btn {
+  padding: 8px 16px;
+  background: #ffffff;
+  border: 1px solid #CBD5E1;
+  border-radius: 20px;
+  font-size: 0.85rem;
+  color: #64748B;
+  font-weight: 600;
+  cursor: pointer;
+  white-space: nowrap;
+  transition: all 0.25s ease;
+  box-shadow: 0 1px 2px rgba(0, 0, 0, 0.02);
+}
+
+.tab-btn:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.05);
+}
+
+/* 1. Bouton "Toutes" (Gris ardoise élégant) */
+.tab-btn:nth-child(1).active, 
+.tab-btn:nth-child(1):active {
+  background: linear-gradient(135deg, #475569 0%, #334155 100%);
+  color: #ffffff;
+  border-color: #334155;
+  box-shadow: 0 4px 12px rgba(51, 65, 85, 0.25);
+}
+
+/* 2. Bouton "A faire" (Bleu dynamique) */
+.tab-btn:nth-child(2).active, 
+.tab-btn:nth-child(2):active {
+  background: linear-gradient(135deg, #3b82f6 0%, #2563eb 100%);
+  color: #ffffff;
+  border-color: #2563eb;
+  box-shadow: 0 4px 12px rgba(37, 99, 235, 0.25);
+}
+
+/* 3. Bouton "En cours" (Orange ambré chaleureux) */
+.tab-btn:nth-child(3).active, 
+.tab-btn:nth-child(3):active {
+  background: linear-gradient(135deg, #f59e0b 0%, #d97706 100%);
+  color: #ffffff;
+  border-color: #d97706;
+  box-shadow: 0 4px 12px rgba(217, 119, 6, 0.25);
+}
+
+/* 4. Bouton "Terminees" (Vert émeraude validé) */
+.tab-btn:nth-child(4).active, 
+.tab-btn:nth-child(4):active {
+  background: linear-gradient(135deg, #10b981 0%, #059669 100%);
+  color: #ffffff;
+  border-color: #059669;
+  box-shadow: 0 4px 12px rgba(5, 150, 105, 0.25);
+}
+
+/* Style du bouton "Modifier" (bleu élégant et épuré) */
+.modal-box .footer-right-actions .btn-modal-cancel {
+  background: #f1f5f9;
+  color: #334155;
+  border: 1px solid #cbd5e1;
+  padding: 8px 16px;
+  border-radius: 6px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.2s ease;
+}
+
+.modal-box .footer-right-actions .btn-modal-cancel:hover {
+  background: #e2e8f0;
+  border-color: #94a3b8;
+  transform: translateY(-1px);
+}
+
+/* Style du bouton "Enregistrer" (vert émeraude dynamique) */
+.modal-box .footer-right-actions .btn-modal-submit {
+  background: #10b981;
+  color: #ffffff;
+  border: none;
+  padding: 8px 18px;
+  border-radius: 6px;
+  font-weight: 600;
+  cursor: pointer;
+  box-shadow: 0 4px 6px rgba(16, 185, 129, 0.2);
+  transition: all 0.2s ease;
+}
+
+.modal-box .footer-right-actions .btn-modal-submit:hover {
+  background: #059669;
+  transform: translateY(-1px);
+  box-shadow: 0 6px 12px rgba(16, 185, 129, 0.3);
+}
+
+.modal-box .footer-right-actions .btn-modal-submit:active {
+  background: #047857;
+  transform: translateY(0);
 }
 
 /* RESPONSIVE DESIGN TACHES */

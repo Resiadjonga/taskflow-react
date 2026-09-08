@@ -9,14 +9,11 @@
   ],
   "projets": [
     {
-      "id": "1",
-      "utilisateurId": "1",
       "nom": "Site vitrine Nguvu",
       "description": "Refonte complète du site institutionnel.",
-      "couleur": "#21C7A5",
-      "creeLe": "2026-09-01",
       "progression": 40,
-      "userId": "1"
+      "userId": 1,
+      "id": "1"
     },
     {
       "id": "2",
@@ -41,22 +38,47 @@
       "projetId": "1",
       "titre": "Intégrer le formulaire de contact",
       "description": "Validation des champs obligatoires et envoi.",
-      "statut": "en_cours",
       "priorite": "haute",
       "echeance": "2026-09-12",
-      "creeLe": "2026-09-02",
-      "modifieLe": "2026-09-04"
+      "statut": "Terminee"
     },
     {
       "id": "2",
       "projetId": "1",
       "titre": "Optimiser les images de la galerie",
       "description": "Compression et format WebP.",
-      "statut": "a_faire",
+      "statut": "En cours",
       "priorite": "moyenne",
       "echeance": "2026-09-14",
       "creeLe": "2026-09-03",
       "modifieLe": "2026-09-03"
+    },
+    {
+      "id": "3",
+      "projetId": "2",
+      "titre": "Créer le chronomètre du quiz",
+      "description": "Implémenter le hook useEffect pour le timer.",
+      "statut": "En cours",
+      "priorite": "haute",
+      "echeance": "2026-09-15"
+    },
+    {
+      "id": "4",
+      "projetId": "2",
+      "titre": "Design des boutons de réponse",
+      "description": "Intégrer Tailwind ou CSS personnalisé.",
+      "statut": "A faire",
+      "priorite": "basse",
+      "echeance": "2026-09-18"
+    },
+    {
+      "id": "5",
+      "projetId": "Fu87pAHJlTo",
+      "titre": "Configurer le routeur React Router",
+      "description": "Mettre en place les différentes routes de l'app.",
+      "statut": "Terminee",
+      "priorite": "haute",
+      "echeance": "2026-09-10"
     }
   ],
   "$schema": "./node_modules/json-server/schema.json"

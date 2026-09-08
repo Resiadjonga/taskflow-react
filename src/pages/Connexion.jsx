@@ -1,9 +1,9 @@
 import { useState } from 'react';
 import { useNavigate, Link } from 'react-router-dom';
 import { useAuth } from '../context/AuthContext';
-import App from '../App';
 
 export const Connexion = () => {
+  // --- ÉTATS DU FORMULAIRE ---
   const [email, setEmail] = useState('');
   const [motDePasse, setMotDePasse] = useState('');
   const [erreur, setErreur] = useState('');
@@ -12,6 +12,7 @@ export const Connexion = () => {
   const { seConnecter } = useAuth();
   const navigate = useNavigate();
 
+  // --- SOUMISSION ET AUTHENTIFICATION ---
   const handleSubmit = async (e) => {
     e.preventDefault();
     setErreur('');
@@ -38,7 +39,7 @@ export const Connexion = () => {
 
   return (
     <div className="auth-wrapper">
-      {/* Panneau Gauche : Présentation */}
+      {/* Panneau Gauche : Présentation (Aligné à gauche) */}
       <div className="auth-sidebar">
         <div className="sidebar-content">
           <h1 className="logo-title">
@@ -57,7 +58,7 @@ export const Connexion = () => {
         </div>
       </div>
 
-      {/* Panneau Droit : Formulaire */}
+      {/* Panneau Droit : Formulaire (Labels et inputs alignés à gauche) */}
       <div className="auth-main">
         <div className="auth-card-wide">
           <h2 className="auth-title-left">Connexion</h2>
@@ -103,12 +104,8 @@ export const Connexion = () => {
             </Link>
           </p>
 
-          <div className="info-box">
-            <strong>Ecran 1 — Connexion / Inscription.</strong> Le message rouge n'apparait qu'en cas d'erreur.
-          </div>
         </div>
       </div>
     </div>
   );
 };
-

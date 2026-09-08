@@ -1,6 +1,7 @@
 import { useEffect, useState } from 'react';
 import { Layout } from '../components/Layout';
 import { useApi } from '../Hooks/useApi';
+import { useLocation } from 'react-router-dom'; // Import pour récupérer le nom du projet sélectionné
 
 export const Taches = () => {
   const [taches, setTaches] = useState([]);
@@ -19,6 +20,10 @@ export const Taches = () => {
   
   const [tacheDetails, setTacheDetails] = useState(null);
 
+  // Récupération du nom du projet transmis par la page Projets
+  const location = useLocation();
+  const nomProjetActuel = location.state?.projetNom || 'Site vitrine Nguvu';
+
   const { executerRequete, chargement, erreur } = useApi();
 
   const chargerTaches = async () => {
@@ -34,12 +39,16 @@ export const Taches = () => {
     chargerTaches();
   }, [executerRequete]);
 
+  // Filtrage robuste prenant en compte les variations d'écriture (espaces, tirets du bas)
   const tachesFiltrees = taches.filter((t) => {
     const matchTitre = (t.titre || '').toLowerCase().includes(recherche.toLowerCase());
+    const statutClean = (t.statut || '').toLowerCase().replace(/[\s_]+/g, '');
+
     if (filtreStatut === 'toutes') return matchTitre;
-    if (filtreStatut === 'a faire') return matchTitre && (t.statut === 'A faire' || t.statut === 'À faire');
-    if (filtreStatut === 'en cours') return matchTitre && t.statut === 'En cours';
-    if (filtreStatut === 'terminees') return matchTitre && (t.statut === 'Terminee' || t.statut === 'Terminée');
+    if (filtreStatut === 'a faire') return matchTitre && (statutClean === 'afaire' || statutClean === 'àfaire');
+    if (filtreStatut === 'en cours') return matchTitre && statutClean === 'encours';
+    if (filtreStatut === 'terminees') return matchTitre && (statutClean === 'terminee' || statutClean === 'terminée');
+    
     return matchTitre;
   });
 
@@ -84,6 +93,7 @@ export const Taches = () => {
       if (response.ok) {
         await chargerTaches();
         setShowModal(false);
+        alert("Enregistrement effectué avec succès");
       }
     } catch (err) {
       alert("Erreur lors de l'enregistrement de la tâche.");
@@ -113,7 +123,8 @@ export const Taches = () => {
     <Layout>
       <div className="taches-header-container">
         <div>
-          <h1 className="taches-main-title">Site vitrine Nguvu</h1>
+          {/* Affiche dynamiquement le nom du projet sélectionné */}
+          <h1 className="taches-main-title">{nomProjetActuel}</h1>
           <p className="taches-main-subtitle">{taches.length} tâches — 6 terminées — avancement 75 %</p>
         </div>
         <button className="btn-new-task" onClick={handleOpenCreate}>+ Nouvelle tâche</button>
@@ -215,20 +226,19 @@ export const Taches = () => {
       {tacheDetails && (
         <div className="modal-overlay">
           <div className="modal-box modal-detail-box">
-            <div className="modal-top">
+            <div className="modal-top" style={{ display: 'flex', justifyContent: 'flex-start', marginBottom: '10px' }}>
               <span className={`badge badge-status-${(tacheDetails.statut || 'en cours').toLowerCase().replace(/\s+/g, '-')}`}>
                 {tacheDetails.statut}
               </span>
-              <button onClick={() => setTacheDetails(null)} className="modal-close-btn">✕</button>
             </div>
 
             <h2 className="modal-title">{tacheDetails.titre}</h2>
-            <p className="modal-subtitle">Projet : Site vitrine Nguvu • Cree le 02/09/2026</p>
+            <p className="modal-subtitle">Projet : {nomProjetActuel} • Cree le 02/09/2026</p>
 
             <div className="modal-section">
               <span className="section-label">DESCRIPTION</span>
               <p className="modal-desc">
-                {tacheDetails.description || 'Construire le formulaire de la page contact avec validation des champs obligatoires (nom, e-mail, message). Afficher un message de confirmation apres envoi et gerer l’etat de chargement pendant la requete.'}
+                {tacheDetails.description || 'Construire le formulaire de la page contact avec validation des champs obligatoires.'}
               </p>
             </div>
 
@@ -275,18 +285,25 @@ export const Taches = () => {
             </div>
 
            <div className="modal-footer detail-footer">
-              <div></div> {/* Espaceur pour garder l'alignement à droite */}
+              <div></div>
               <div className="footer-right-actions">
                 <button onClick={() => handleSupprimer(tacheDetails.id)} className="btn-modal-delete">Supprimer</button>
                 <button onClick={() => { setTacheDetails(null); handleOpenEdit(tacheDetails); }} className="btn-modal-cancel">Modifier</button>
                 <button onClick={async () => {
-                  await fetch(`http://localhost:3001/taches/${tacheDetails.id}`, {
-                    method: 'PUT',
-                    headers: { 'Content-Type': 'application/json' },
-                    body: JSON.stringify(tacheDetails)
-                  });
-                  await chargerTaches();
-                  setTacheDetails(null);
+                  try {
+                    const response = await fetch(`http://localhost:3001/taches/${tacheDetails.id}`, {
+                      method: 'PUT',
+                      headers: { 'Content-Type': 'application/json' },
+                      body: JSON.stringify(tacheDetails)
+                    });
+                    if (response.ok) {
+                      await chargerTaches();
+                      alert("Enregistrement effectué avec succès");
+                      setTacheDetails(null);
+                    }
+                  } catch (err) {
+                    alert("Erreur lors de l'enregistrement.");
+                  }
                 }} className="btn-modal-submit">Enregistrer</button>
               </div>
             </div>
