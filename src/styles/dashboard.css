@@ -136,23 +136,55 @@
   margin-bottom: 24px;
 }
 
-/* Amélioration : Contour complet, fond propre et ombre douce sur toutes les côtes */
+/* Cartes de statistiques avec des teintes de fond uniques et des bordures dynamiques */
 .stat-card {
-  background: #ffffff;
   padding: 20px;
   border-radius: 12px;
-  border: 1px solid #e2e8f0;
-  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.02);
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.02);
   display: flex;
   flex-direction: column;
   position: relative;
   transition: transform 0.3s ease, box-shadow 0.3s ease, border-color 0.3s ease;
 }
 
-.stat-card:hover {
-  transform: translateY(-4px);
-  border-color: #1ad1a5;
-  box-shadow: 0 10px 20px rgba(26, 209, 165, 0.1);
+.stat-card:nth-child(1) {
+  background: linear-gradient(135deg, #ffffff 0%, #f0fdf4 100%);
+  border: 2px solid #bbf7d0;
+}
+.stat-card:nth-child(1):hover {
+  transform: translateY(-5px);
+  border-color: #22c55e;
+  box-shadow: 0 10px 20px rgba(34, 197, 94, 0.15);
+}
+
+.stat-card:nth-child(2) {
+  background: linear-gradient(135deg, #ffffff 0%, #eff6ff 100%);
+  border: 2px solid #bfdbfe;
+}
+.stat-card:nth-child(2):hover {
+  transform: translateY(-5px);
+  border-color: #3b82f6;
+  box-shadow: 0 10px 20px rgba(59, 130, 246, 0.15);
+}
+
+.stat-card:nth-child(3) {
+  background: linear-gradient(135deg, #ffffff 0%, #fffbeb 100%);
+  border: 2px solid #fde68a;
+}
+.stat-card:nth-child(3):hover {
+  transform: translateY(-5px);
+  border-color: #f59e0b;
+  box-shadow: 0 10px 20px rgba(245, 158, 11, 0.15);
+}
+
+.stat-card:nth-child(4) {
+  background: linear-gradient(135deg, #ffffff 0%, #fdf2f8 100%);
+  border: 2px solid #fbcfe8;
+}
+.stat-card:nth-child(4):hover {
+  transform: translateY(-5px);
+  border-color: #ec4899;
+  box-shadow: 0 10px 20px rgba(236, 72, 153, 0.15);
 }
 
 .stat-label {
@@ -180,21 +212,36 @@
   margin-bottom: 24px;
 }
 
-/* Amélioration : Contour complet, fond et ombres pour les blocs de graphiques / tableaux */
+/* Cartes Avancement par projets et Répartition des tâches avec couleurs distinctes et animations robustes sur les côtés */
 .dash-card {
-  background: #ffffff;
   padding: 24px;
   border-radius: 12px;
-  border: 1px solid #e2e8f0;
-  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.02);
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.02);
   margin-bottom: 20px;
   position: relative;
   transition: transform 0.3s ease, box-shadow 0.3s ease, border-color 0.3s ease;
 }
 
-.dash-card:hover {
-  border-color: #cbd5e1;
-  box-shadow: 0 8px 16px rgba(0, 0, 0, 0.05);
+/* Carte 1 : Avancement par projets (Teinte Cyan / Teal) */
+.charts-grid .dash-card:nth-child(1) {
+  background: linear-gradient(145deg, #ffffff 0%, #f0fdfa 100%);
+  border: 2px solid #99f6e4;
+}
+.charts-grid .dash-card:nth-child(1):hover {
+  transform: translateY(-4px);
+  border-color: #14b8a6;
+  box-shadow: 0 12px 24px rgba(20, 184, 166, 0.15);
+}
+
+/* Carte 2 : Répartition des tâches (Teinte Violet / Indigo) */
+.charts-grid .dash-card:nth-child(2) {
+  background: linear-gradient(145deg, #ffffff 0%, #f5f3ff 100%);
+  border: 2px solid #ddd6fe;
+}
+.charts-grid .dash-card:nth-child(2):hover {
+  transform: translateY(-4px);
+  border-color: #8b5cf6;
+  box-shadow: 0 12px 24px rgba(139, 92, 246, 0.15);
 }
 
 .dash-card h3 {
