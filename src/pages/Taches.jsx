@@ -1,7 +1,7 @@
 import { useEffect, useState } from 'react';
 import { Layout } from '../components/Layout';
 import { useApi } from '../Hooks/useApi';
-import { useLocation } from 'react-router-dom'; // Import pour récupérer le nom du projet sélectionné
+import { useLocation } from 'react-router-dom';
 
 export const Taches = () => {
   const [taches, setTaches] = useState([]);
@@ -20,7 +20,6 @@ export const Taches = () => {
   
   const [tacheDetails, setTacheDetails] = useState(null);
 
-  // Récupération du nom du projet transmis par la page Projets
   const location = useLocation();
   const nomProjetActuel = location.state?.projetNom || 'Site vitrine Nguvu';
 
@@ -39,7 +38,6 @@ export const Taches = () => {
     chargerTaches();
   }, [executerRequete]);
 
-  // Filtrage robuste prenant en compte les variations d'écriture (espaces, tirets du bas)
   const tachesFiltrees = taches.filter((t) => {
     const matchTitre = (t.titre || '').toLowerCase().includes(recherche.toLowerCase());
     const statutClean = (t.statut || '').toLowerCase().replace(/[\s_]+/g, '');
@@ -51,6 +49,14 @@ export const Taches = () => {
     
     return matchTitre;
   });
+
+  // Calculs dynamiques pour les tâches terminées et le pourcentage
+  const nombreTerminees = taches.filter(t => {
+    const statutClean = (t.statut || '').toLowerCase().replace(/[\s_]+/g, '');
+    return statutClean === 'terminee' || statutClean === 'terminée';
+  }).length;
+
+  const pourcentageAvancement = taches.length > 0 ? Math.round((nombreTerminees / taches.length) * 100) : 0;
 
   const handleOpenCreate = () => {
     setIsEditing(false);
@@ -80,8 +86,8 @@ export const Taches = () => {
 
     try {
       const url = isEditing 
-        ? `http://localhost:3001/taches/${currentId}` 
-        : 'http://localhost:3001/taches';
+        ? `http://localhost:3000/taches/${currentId}` 
+        : 'http://localhost:3000/taches';
       const method = isEditing ? 'PUT' : 'POST';
 
       const response = await fetch(url, {
@@ -103,7 +109,7 @@ export const Taches = () => {
   const handleSupprimer = async (id) => {
     if (window.confirm("Voulez-vous vraiment supprimer cette tâche ?")) {
       try {
-        const response = await fetch(`http://localhost:3001/taches/${id}`, {
+        const response = await fetch(`http://localhost:3000/taches/${id}`, {
           method: 'DELETE'
         });
         if (response.ok) {
@@ -123,9 +129,10 @@ export const Taches = () => {
     <Layout>
       <div className="taches-header-container">
         <div>
-          {/* Affiche dynamiquement le nom du projet sélectionné */}
           <h1 className="taches-main-title">{nomProjetActuel}</h1>
-          <p className="taches-main-subtitle">{taches.length} tâches — 6 terminées — avancement 75 %</p>
+          <p className="taches-main-subtitle">
+            {taches.length} tâches — {nombreTerminees} terminées — avancement {pourcentageAvancement} %
+          </p>
         </div>
         <button className="btn-new-task" onClick={handleOpenCreate}>+ Nouvelle tâche</button>
       </div>
@@ -291,7 +298,7 @@ export const Taches = () => {
                 <button onClick={() => { setTacheDetails(null); handleOpenEdit(tacheDetails); }} className="btn-modal-cancel">Modifier</button>
                 <button onClick={async () => {
                   try {
-                    const response = await fetch(`http://localhost:3001/taches/${tacheDetails.id}`, {
+                    const response = await fetch(`http://localhost:3000/taches/${tacheDetails.id}`, {
                       method: 'PUT',
                       headers: { 'Content-Type': 'application/json' },
                       body: JSON.stringify(tacheDetails)
