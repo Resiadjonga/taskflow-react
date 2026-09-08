@@ -69,7 +69,7 @@ export const Connexion = () => {
               <input
                 type="email"
                 className="form-input"
-                placeholder="djonga@primetek.cd"
+                placeholder="rebeccameta@primetek.cd"
                 value={email}
                 onChange={(e) => setEmail(e.target.value)}
                 required

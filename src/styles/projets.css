@@ -1,0 +1,194 @@
+.state-message {
+  font-size: 0.95rem;
+  color: #64748b;
+  padding: 20px;
+}
+
+.state-message.error {
+  color: #ef4444;
+}
+
+.projets-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 20px;
+}
+
+.projets-title {
+  margin: 0;
+  color: #0f172a;
+  font-size: 1.6rem;
+}
+
+.projets-subtitle {
+  color: #64748b;
+  margin: 5px 0 0 0;
+  font-size: 0.9rem;
+}
+
+.btn-add-projet {
+  background: #10b981;
+  color: #ffffff;
+  border: none;
+  padding: 10px 16px;
+  border-radius: 6px;
+  font-weight: bold;
+  cursor: pointer;
+  transition: background-color 0.2s;
+}
+
+.btn-add-projet:hover {
+  background: #059669;
+}
+
+.projets-filter-bar {
+  display: flex;
+  gap: 15px;
+  margin-bottom: 25px;
+}
+
+.projets-search {
+  flex: 1;
+  padding: 12px 16px;
+  border: 1px solid #e2e8f0;
+  border-radius: 8px;
+  background: #ffffff;
+  font-size: 0.9rem;
+  color: #64748b;
+  outline: none;
+}
+
+.projets-sort {
+  padding: 12px 16px;
+  border: 1px solid #e2e8f0;
+  border-radius: 8px;
+  background: #ffffff;
+  font-size: 0.9rem;
+  color: #64748b;
+  cursor: pointer;
+  outline: none;
+}
+
+.projets-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(320px, 1fr));
+  gap: 20px;
+}
+
+.projet-card {
+  background: #ffffff;
+  padding: 22px;
+  border-radius: 10px;
+  border: 1px solid #e2e8f0;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  box-shadow: 0 1px 3px rgba(0,0,0,0.02);
+}
+
+.projet-name {
+  margin: 0 0 10px 0;
+  color: #0f172a;
+  font-size: 1.05rem;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.projet-desc {
+  color: #64748b;
+  font-size: 0.85rem;
+  margin: 0 0 20px 0;
+}
+
+.projet-card-dashed {
+  border: 2px dashed #cbd5e1;
+  background: transparent;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: #64748b;
+  font-weight: 500;
+  cursor: pointer;
+  min-height: 180px;
+  transition: border-color 0.2s, color 0.2s;
+}
+
+.projet-card-dashed:hover {
+  border-color: #10b981;
+  color: #10b981;
+}
+
+.progress-info {
+  display: flex;
+  justify-content: space-between;
+  font-size: 0.8rem;
+  color: #64748b;
+  margin-bottom: 5px;
+}
+
+.progress-percent {
+  color: #10b981;
+  font-weight: bold;
+}
+
+.progress-track {
+  width: 100%;
+  background: #e2e8f0;
+  height: 6px;
+  border-radius: 3px;
+  margin-bottom: 20px;
+  overflow: hidden;
+}
+
+.progress-fill {
+  background: #10b981;
+  height: 100%;
+  border-radius: 3px;
+}
+
+.card-actions {
+  display: flex;
+  gap: 8px;
+}
+
+.btn-card {
+  flex: 1;
+  padding: 6px;
+  border: 1px solid #cbd5e1;
+  background: #ffffff;
+  border-radius: 4px;
+  cursor: pointer;
+  font-size: 0.8rem;
+  color: #334155;
+  transition: all 0.2s;
+}
+
+.btn-card:hover {
+  background: #f8fafc;
+}
+
+.btn-card.danger {
+  border-color: #fca5a5;
+  color: #ef4444;
+}
+
+.btn-card.danger:hover {
+  background: #fef2f2;
+}
+
+/* RESPONSIVE DESIGN PROJETS */
+@media (max-width: 768px) {
+  .projets-header {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 15px;
+  }
+  .projets-filter-bar {
+    flex-direction: column;
+  }
+  .projets-grid {
+    grid-template-columns: 1fr;
+  }
+}

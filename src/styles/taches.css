@@ -1,0 +1,191 @@
+.taches-header-container {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 20px;
+}
+
+.taches-main-title {
+  margin: 0;
+  color: #0F172A;
+  font-size: 1.6rem;
+}
+
+.taches-main-subtitle {
+  color: #64748B;
+  margin: 5px 0 0 0;
+  font-size: 0.9rem;
+}
+
+.btn-new-task {
+  background: #10B981;
+  color: #fff;
+  border: none;
+  padding: 10px 16px;
+  border-radius: 6px;
+  font-weight: bold;
+  cursor: pointer;
+}
+
+.btn-new-task:hover {
+  background: #059669;
+}
+
+.taches-filters-bar {
+  display: flex;
+  gap: 12px;
+  margin-bottom: 15px;
+}
+
+.taches-search {
+  flex: 1;
+  padding: 10px 14px;
+  border: 1px solid #E2E8F0;
+  border-radius: 6px;
+  background: #ffffff;
+  font-size: 0.9rem;
+  color: #475569;
+  outline: none;
+}
+
+.taches-select-priorite,
+.taches-select-tri {
+  padding: 10px 14px;
+  border: 1px solid #E2E8F0;
+  border-radius: 6px;
+  background: #ffffff;
+  font-size: 0.9rem;
+  color: #475569;
+  cursor: pointer;
+  outline: none;
+}
+
+.taches-tabs {
+  display: flex;
+  gap: 10px;
+  margin-bottom: 20px;
+  overflow-x: auto;
+  padding-bottom: 5px;
+}
+
+.tab-btn {
+  padding: 6px 14px;
+  background: #ffffff;
+  border: 1px solid #CBD5E1;
+  border-radius: 20px;
+  font-size: 0.85rem;
+  color: #64748B;
+  font-weight: 500;
+  cursor: pointer;
+  white-space: nowrap;
+  transition: all 0.2s;
+}
+
+.tab-btn.active {
+  background: #0F172A;
+  color: #ffffff;
+  border-color: #0F172A;
+}
+
+.taches-table-card {
+  background: #fff;
+  border-radius: 8px;
+  border: 1px solid #E2E8F0;
+  padding: 20px;
+  overflow-x: auto; /* Permet de scroller horizontalement sur mobile si le tableau est large */
+}
+
+.taches-table {
+  width: 100%;
+  border-collapse: collapse;
+  min-width: 600px;
+}
+
+.taches-thead-row {
+  border-bottom: 1px solid #E2E8F0;
+  color: #64748B;
+  font-size: 0.75rem;
+  text-align: left;
+}
+
+.taches-thead-row th {
+  padding: 10px;
+}
+
+.taches-tbody-row {
+  border-bottom: 1px solid #F1F5F9;
+  font-size: 0.85rem;
+}
+
+.taches-tbody-row td {
+  padding: 12px 10px;
+}
+
+.tache-title-cell {
+  font-weight: 600;
+  color: #0F172A;
+}
+
+.tache-desc-cell {
+  font-size: 0.75rem;
+  color: #64748B;
+  margin-top: 2px;
+}
+
+.tache-date-cell {
+  color: #64748B;
+}
+
+.text-right {
+  text-align: right;
+}
+
+.badge {
+  padding: 2px 8px;
+  border-radius: 10px;
+  font-size: 0.75rem;
+  display: inline-block;
+}
+
+.badge-priority-haute, .badge-priority { background: #FEE2E2; color: #EF4444; }
+.badge-priority-moyenne { background: #FEF3C7; color: #D97706; }
+.badge-priority-basse { background: #F1F5F9; color: #475569; }
+.badge-status-en-cours, .badge-status { background: #FEF3C7; color: #D97706; }
+.badge-status-terminee, .badge-status-terminée { background: #D1FAE5; color: #059669; }
+.badge-status-a-faire, .badge-status-à-faire { background: #F1F5F9; color: #475569; }
+
+.btn-action {
+  padding: 4px 8px;
+  border: 1px solid #CBD5E1;
+  background: #fff;
+  border-radius: 4px;
+  cursor: pointer;
+  font-size: 0.75rem;
+  margin-right: 5px;
+}
+
+.btn-action:hover {
+  background: #F8FAFC;
+}
+
+.btn-delete {
+  border-color: #FCA5A5;
+  color: #EF4444;
+  margin-right: 0;
+}
+
+.btn-delete:hover {
+  background: #FEF2F2;
+}
+
+/* RESPONSIVE DESIGN TACHES */
+@media (max-width: 768px) {
+  .taches-header-container {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 15px;
+  }
+  .taches-filters-bar {
+    flex-direction: column;
+  }
+}

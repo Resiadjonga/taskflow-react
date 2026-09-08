@@ -1,0 +1,272 @@
+.auth-wrapper {
+  display: flex;
+  min-height: 100vh;
+  width: 100%;
+  font-family: system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+}
+
+.auth-sidebar {
+  flex: 1;
+  background-color: #111d33;
+  color: #ffffff;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 60px;
+}
+
+.sidebar-content {
+  max-width: 420px;
+}
+
+.logo-title {
+  font-size: 2.2rem;
+  font-weight: 700;
+  margin-bottom: 16px;
+  color: #2513c8;
+}
+
+.logo-highlight {
+  color: #1ad1a5;
+}
+
+.sidebar-description {
+  color: #94a3b8;
+  line-height: 1.5;
+  font-size: 1rem;
+  margin-bottom: 40px;
+}
+
+.sidebar-features {
+  border-left: 2px solid #1ad1a5;
+  padding-left: 16px;
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  color: #cbd5e1;
+  font-size: 0.9rem;
+}
+
+.auth-main {
+  flex: 1.2;
+  background-color: #f1f5f9;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 40px;
+}
+
+.auth-card-wide {
+  width: 100%;
+  max-width: 380px;
+}
+
+.auth-title-left {
+  font-size: 1.75rem;
+  font-weight: 800;
+  color: #0f172a;
+  margin: 0 0 6px 0;
+}
+
+.auth-subtitle-left {
+  color: #64748b;
+  font-size: 0.875rem;
+  margin: 0 0 28px 0;
+}
+
+.auth-form {
+  display: flex;
+  flex-direction: column;
+  gap: 18px;
+}
+
+.form-group {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+}
+
+.form-label {
+  font-size: 0.85rem;
+  font-weight: 700;
+  color: #1e293b;
+}
+
+.form-input {
+  width: 100%;
+  padding: 12px 14px;
+  border: 1px solid #cbd5e1;
+  border-radius: 8px;
+  font-size: 0.95rem;
+  background-color: #ffffff;
+  outline: none;
+  box-sizing: border-box;
+}
+
+.form-input:focus {
+  border-color: #1ad1a5;
+}
+
+.error-banner {
+  background-color: #ffe4e6;
+  color: #e11d48;
+  padding: 10px 14px;
+  border-radius: 6px;
+  font-size: 0.85rem;
+}
+
+.btn-submit-green {
+  width: 100%;
+  padding: 12px;
+  background-color: #1ad1a5;
+  color: #042f2e;
+  border: none;
+  border-radius: 8px;
+  font-size: 0.95rem;
+  font-weight: 700;
+  cursor: pointer;
+  margin-top: 4px;
+}
+
+.btn-submit-green:hover {
+  background-color: #15b892;
+}
+
+.auth-footer {
+  text-align: center;
+  font-size: 0.85rem;
+  color: #64748b;
+  margin-top: 24px;
+}
+
+.auth-link-bold {
+  color: #0f766e;
+  font-weight: 700;
+  text-decoration: none;
+}
+
+.info-box {
+  margin-top: 28px;
+  background-color: #fef9c3;
+  border: 1px dashed #fde047;
+  padding: 12px;
+  border-radius: 6px;
+  font-size: 0.75rem;
+  color: #854d0e;
+  line-height: 1.4;
+}
+
+.inscription-container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  min-height: 100vh;
+  background-color: #f1f5f9;
+  padding: 20px;
+}
+
+.inscription-card {
+  width: 100%;
+  max-width: 400px;
+  padding: 30px;
+  background: #ffffff;
+  border-radius: 8px;
+  box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1);
+}
+
+.inscription-title {
+  margin: 0 0 10px 0;
+  color: #0f172a;
+  text-align: center;
+}
+
+.inscription-subtitle {
+  margin: 0 0 20px 0;
+  color: #64748b;
+  font-size: 0.9rem;
+  text-align: center;
+}
+
+.inscription-error {
+  color: #ef4444;
+  background-color: #fef2f2;
+  padding: 10px;
+  border-radius: 4px;
+  border: 1px solid #fca5a5;
+  font-size: 0.85rem;
+  margin-bottom: 15px;
+}
+
+.inscription-form {
+  display: flex;
+  flex-direction: column;
+  gap: 15px;
+}
+
+.inscription-group label {
+  display: block;
+  font-size: 0.85rem;
+  font-weight: 600;
+  margin-bottom: 5px;
+  color: #334155;
+}
+
+.inscription-group input {
+  width: 100%;
+  padding: 10px;
+  border-radius: 6px;
+  border: 1px solid #cbd5e1;
+  box-sizing: border-box;
+  outline: none;
+}
+
+.inscription-group input:focus {
+  border-color: #21C7A5;
+}
+
+.inscription-btn {
+  background: #21C7A5;
+  color: #ffffff;
+  border: none;
+  padding: 12px;
+  border-radius: 6px;
+  font-weight: 600;
+  cursor: pointer;
+  margin-top: 10px;
+  transition: background 0.2s;
+}
+
+.inscription-btn:hover {
+  background: #1bb294;
+}
+
+.inscription-btn:disabled {
+  opacity: 0.7;
+  cursor: not-allowed;
+}
+
+.inscription-footer {
+  margin-top: 20px;
+  font-size: 0.9rem;
+  color: #64748b;
+  text-align: center;
+}
+
+.inscription-link {
+  color: #21C7A5;
+  font-weight: 600;
+  text-decoration: none;
+}
+
+/* RESPONSIVE DESIGN CONNEXION */
+@media (max-width: 850px) {
+  .auth-wrapper {
+    flex-direction: column;
+  }
+  .auth-sidebar {
+    padding: 30px 20px;
+  }
+  .auth-main {
+    padding: 30px 20px;
+  }
+}

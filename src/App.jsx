@@ -7,7 +7,13 @@ import { Dashboard } from './pages/Dashboard';
 import { Projets } from './pages/Projets';
 import { Taches } from './pages/Taches';
 import { Parametres } from './pages/Paramettre';
-import './App.css'; 
+
+// Importation des fichiers CSS modulaires
+import './styles/connexion.css';
+import './styles/dashboard.css';
+import './styles/projets.css';
+import './styles/taches.css';
+import './styles/modals.css';
 
 function App() {
   return (
@@ -24,11 +30,10 @@ function App() {
 
           <Route path="/" element={<Navigate to="/dashboard" replace />} />
           <Route path="*" element={<Navigate to="/dashboard" replace />} />
-         
-      
         </Routes>
       </BrowserRouter>
     </AuthProvider>
   );
 }
+
 export default App;
