@@ -1,0 +1,41 @@
+.page404-container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  min-height: 100vh;
+  background-color: #f8fafc;
+}
+
+.page404-card {
+  text-align: center;
+  padding: 40px;
+  max-width: 500px;
+  width: 100%;
+}
+
+.error-code {
+  font-size: 6rem;
+  font-weight: 800;
+  color: #10b981;
+  line-height: 1;
+  margin: 20px 0;
+}
+
+.error-title {
+  font-size: 1.5rem;
+  font-weight: 700;
+  color: #1e293b;
+  margin-bottom: 10px;
+}
+
+.error-description {
+  color: #64748b;
+  margin-bottom: 30px;
+  font-size: 0.95rem;
+}
+
+.error-btn {
+  display: inline-block;
+  text-decoration: none;
+  box-shadow: 0 4px 6px -1px rgba(16, 185, 129, 0.2);
+}

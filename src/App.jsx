@@ -7,6 +7,7 @@ import { Dashboard } from './pages/Dashboard';
 import { Projets } from './pages/Projets';
 import { Taches } from './pages/Taches';
 import { Parametres } from './pages/Paramettre';
+import { Page404 } from './pages/Page404';
 
 // Importation des fichiers CSS modulaires
 import './styles/connexion.css';
@@ -14,6 +15,7 @@ import './styles/dashboard.css';
 import './styles/projets.css';
 import './styles/taches.css';
 import './styles/modals.css';
+import './styles/page404.css'
 
 function App() {
   return (
@@ -29,7 +31,7 @@ function App() {
           <Route path="/parametres" element={<Parametres />} />
 
           <Route path="/" element={<Navigate to="/dashboard" replace />} />
-          <Route path="*" element={<Navigate to="/dashboard" replace />} />
+          <Route path="*" element={<Page404 />} />
         </Routes>
       </BrowserRouter>
     </AuthProvider>
