@@ -50,7 +50,17 @@ export const Taches = () => {
     return matchTitre;
   });
 
-  // Calculs dynamiques pour les tâches terminées et le pourcentage
+  // Calculs dynamiques pour les effectifs de chaque statut avec .length
+  const nombreAFaire = taches.filter(t => {
+    const statutClean = (t.statut || '').toLowerCase().replace(/[\s_]+/g, '');
+    return statutClean === 'afaire' || statutClean === 'àfaire';
+  }).length;
+
+  const nombreEnCours = taches.filter(t => {
+    const statutClean = (t.statut || '').toLowerCase().replace(/[\s_]+/g, '');
+    return statutClean === 'encours';
+  }).length;
+
   const nombreTerminees = taches.filter(t => {
     const statutClean = (t.statut || '').toLowerCase().replace(/[\s_]+/g, '');
     return statutClean === 'terminee' || statutClean === 'terminée';
@@ -149,11 +159,12 @@ export const Taches = () => {
         <select className="taches-select-tri"><option>Trier : echeance</option></select>
       </div>
 
+      {/* Onglets avec intégration des comptes dynamiques (.length) */}
       <div className="taches-tabs">
         <button className={`tab-btn ${filtreStatut === 'toutes' ? 'active' : ''}`} onClick={() => setFiltreStatut('toutes')}>Toutes ({taches.length})</button>
-        <button className={`tab-btn ${filtreStatut === 'a faire' ? 'active' : ''}`} onClick={() => setFiltreStatut('a faire')}>A faire</button>
-        <button className={`tab-btn ${filtreStatut === 'en cours' ? 'active' : ''}`} onClick={() => setFiltreStatut('en cours')}>En cours</button>
-        <button className={`tab-btn ${filtreStatut === 'terminees' ? 'active' : ''}`} onClick={() => setFiltreStatut('terminees')}>Terminees</button>
+        <button className={`tab-btn ${filtreStatut === 'a faire' ? 'active' : ''}`} onClick={() => setFiltreStatut('a faire')}>À faire ({nombreAFaire})</button>
+        <button className={`tab-btn ${filtreStatut === 'en cours' ? 'active' : ''}`} onClick={() => setFiltreStatut('en cours')}>En cours ({nombreEnCours})</button>
+        <button className={`tab-btn ${filtreStatut === 'terminees' ? 'active' : ''}`} onClick={() => setFiltreStatut('terminees')}>Terminées ({nombreTerminees})</button>
       </div>
 
       <div className="taches-table-card">
