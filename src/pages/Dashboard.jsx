@@ -116,7 +116,7 @@ export const Dashboard = () => {
 
   const initiales = utilisateur?.nom
     ? utilisateur.nom.split(' ').map((n) => n[0]).join('').toUpperCase()
-    : 'SN';
+    : 'RD';
 
   return (
     <div className="dash-container">

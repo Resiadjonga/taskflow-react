@@ -19,10 +19,10 @@ Concevoir et développer une application web de gestion de tâches et de projets
 
 ## 🛠️ Stack Technique & Outils
 
-* **Frontend :** React.js, React Router DOM (pour la navigation SPA et ses hooks natifs : `useNavigate`, `useParams`, `useSearch`, etc.)
-* **Style & UI :** CSS personnalisé, composants réactifs et modales interactives
-* **Backend / Données :** JSON Server (API REST locale)
-* **Outils de développement :** Git, GitHub, Visual Studio Code
+* **Frontend :** React.js, React Router DOM...
+* **Style & UI :** CSS personnalisé, composants réactifs et modales interactives;
+* **Backend / Données :** JSON Server (API REST locale);
+* **Outils de développement :** Git, GitHub, Visual Studio Code.
 
 ---
 
