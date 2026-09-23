@@ -16,20 +16,31 @@
       "id": "1"
     },
     {
-      "id": "2",
-      "utilisateurId": "1",
-      "nom": "Application Quizzy",
+      "nom": "Application ",
       "description": "Quiz interactif chronométré.",
-      "couleur": "#7C3AED",
-      "creeLe": "2026-09-02",
       "progression": 70,
-      "userId": "1"
+      "userId": 1,
+      "id": "2"
     },
     {
       "nom": "REACT",
       "progression": 51,
       "userId": "1",
       "id": "Fu87pAHJlTo"
+    },
+    {
+      "nom": "HTML",
+      "description": "",
+      "progression": 44,
+      "userId": 1,
+      "id": "OeYdpNl2wmU"
+    },
+    {
+      "nom": "dom",
+      "description": "",
+      "progression": 26,
+      "userId": 1,
+      "id": "tB_lR4p6tbY"
     }
   ],
   "taches": [
@@ -40,7 +51,7 @@
       "description": "Validation des champs obligatoires et envoi.",
       "priorite": "haute",
       "echeance": "2026-09-12",
-      "statut": "Terminee"
+      "statut": "A faire"
     },
     {
       "id": "2",
